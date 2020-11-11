@@ -237,7 +237,7 @@ function line(l, h)
 		-- dig a line
 	else 
 		local fuel = (l*h) - t.getFuelLevel()
-		print("need ",+fuel+," fuel")
+		print("need "..fuel.." fuel")
 	end
 end
 
