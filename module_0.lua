@@ -10,7 +10,6 @@
     
     
 --[[
-    - ligne(n)
     - print_3D(mot)
     - drop in chest (position, all, slots, item)
 --]]
@@ -149,6 +148,14 @@ function t.smartRefuel(combustible, n)
 end
 
 -- movements
+function t.enoughtFuel(n)
+	if t.getFuelLevel() <= n then
+		return false
+	else
+		return true
+	end
+end
+
 
     -- back is risky to use because we can't know if the way is clear
 function t.back(n)
@@ -191,8 +198,30 @@ function t.down(n)
     return true
 end
 
+	-- the turtle will go to the coordonates, knowing that the turtle is at
+	-- (0,0,0) and +x is in front, +y is on the right and +z is on the top 
 function go_to(x,y,z)
-    
+	-- x
+	if x >= 0 then
+		t.forward(x)
+	else
+		t.flip()
+		t.forward(x)
+	end
+	-- y
+	if y >= 0 then
+		t.turnRight()
+		t.forward(x)
+	else
+		t.turnLeft()
+		t.forward(x)
+	end	
+	-- z
+	if z >= 0 then
+		t.up(x)
+	else
+		t.down(x)
+	end
 end
 
 function t.flip()
@@ -201,12 +230,17 @@ function t.flip()
 end
 
 -- function create
-
+	-- line(n) dig a length*heigh line in front of the turtle
+function line(l, h)
+	local m = l*h
+	if t.enoughtFuel(m) then
+		-- dig a line
+	else 
+		local fuel = (l*h) - t.getFuelLevel()
+		print("need ",+fuel," fuel")
+	end
+end
 
 -- test
 
-function test()
-    print(t.smartRefuel(t.ALL_COALS, 5000))
-end
-
-test()
+return t
