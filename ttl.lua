@@ -200,7 +200,7 @@ end
 
 	-- the turtle will go to the coordonates, knowing that the turtle is at
 	-- (0,0,0) and +x is in front, +y is on the right and +z is on the top 
-function goTo(x,y,z)
+function t.goTo(x,y,z)
 	-- x
 	if x >= 0 then
 		t.forward(x)
