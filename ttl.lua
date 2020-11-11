@@ -211,16 +211,16 @@ function t.goTo(x,y,z)
 	-- y
 	if y >= 0 then
 		t.turnRight()
-		t.forward(x)
+		t.forward(y)
 	else
 		t.turnLeft()
-		t.forward(x)
+		t.forward(y)
 	end	
 	-- z
 	if z >= 0 then
-		t.up(x)
+		t.up(z)
 	else
-		t.down(x)
+		t.down(z)
 	end
 end
 
