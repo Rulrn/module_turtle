@@ -256,7 +256,7 @@ function goTo(x,y,z)
 		dir = dir +1
 	else
 		turtle.turnLeft()
-		forward(math.abs(x))
+		forward(math.abs(y))
 		dir = dir -1
 	end	
 	-- z
@@ -312,6 +312,11 @@ function volume(l,w,h)
 		--start layer
 		for j=1, w-1 do
 			digForward(l-1)
+			if j%2 == 1 then
+				t_x = t_x + l-1
+			else
+				t_x = t_x - l-1
+			end
 			if j%2==way then
 				turtle.turnRight()
 				digForward()
@@ -321,8 +326,14 @@ function volume(l,w,h)
 				digForward()
 				turtle.turnLeft()
 			end
+			if way%2 == 1 then
+				t_y = t_y +1
+			else
+				t_y = t_y - 1
+			end
 		end
 		digForward(l-1)
+		
 		if w%2 == 0 then
 			way = 1 - way
 		end
@@ -330,9 +341,10 @@ function volume(l,w,h)
 		if i ~= h then 
 			digUp()
 			flip()
+			t_z = t_z +1
 		end
 	end
-	
+	print("x:"..t_x.."y:"..t_y.."z:"..t_z..)
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
