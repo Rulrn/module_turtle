@@ -290,6 +290,9 @@ function volume(l,w,h)
 	local t_x = 0
 	local t_y = 0
 	local t_z = 0
+	
+	local way = 0
+	
 	--only positive parameters
 	if l <= 0 or w <= 0 or h <= 0 then
 		print("!!! only positive parameters!!!")
@@ -306,9 +309,10 @@ function volume(l,w,h)
 	--cycle
 	digForward()
 	for i=1, h do
+		--start layer
 		for j=1, w-1 do
 			digForward(l-1)
-			if j%2==1 then
+			if j%2==way then
 				turtle.turnRight()
 				digForward()
 				turtle.turnRight()
@@ -317,8 +321,14 @@ function volume(l,w,h)
 				digForward()
 				turtle.turnLeft()
 			end
-			digForward(l-1)
 		end
+		digForward(l-1)
+		if w%2 == 1 then
+			way = 1 - way
+		end
+		--end layer
+		digUp()
+		flip()
 	end
 	
 end
