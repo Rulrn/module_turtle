@@ -236,6 +236,7 @@ end
 	-- (0,0,0) and +x is in front, +y is on the right and +z is on the top 
 function goTo(x,y,z)
 	local dir = 0
+	local temp_flip = false
 	-- x
 	if x >= 0 then
 		forward(x)
@@ -243,9 +244,10 @@ function goTo(x,y,z)
 		flip()
 		forward(-x)
 		dir = dir + 2
+		temp_flip = true
 	end
 	-- y
-	if y >= 0 then
+	if (y >= 0 and not temp_flip) or (y <=0 and temp_flip) then
 		turtle.turnRight()
 		forward(y)
 		dir = dir +1
