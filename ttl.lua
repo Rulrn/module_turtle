@@ -194,6 +194,45 @@ function down(n)
     return true
 end
 
+function digForward(n)
+	n = n or 1
+	for i=1, n do
+		if detect() then
+			turtle.dig()
+			tutle.forward()
+		else
+			turtle.forward()
+		end
+	end
+	return true
+end
+
+function digUp(n)
+	n = n or 1
+	for i=1, n do
+		if detectUp() then
+			turtle.digUp()
+			tutle.up()
+		else
+			turtle.up()
+		end
+	end
+	return true
+end
+
+function digDown(n)
+	n = n or 1
+	for i=1, n do
+		if detectDown() then
+			turtle.digDown()
+			tutle.down()
+		else
+			turtle.down()
+		end
+	end
+	return true
+end
+
 	-- the turtle will go to the coordonates, knowing that the turtle is at
 	-- (0,0,0) and +x is in front, +y is on the right and +z is on the top 
 function goTo(x,y,z)
