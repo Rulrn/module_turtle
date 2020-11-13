@@ -335,7 +335,7 @@ function volume(l,w,h)
 			end
 		end
 		digForward(l-1)
-		if j%2 == 1 then
+		if t_x <=0 then
 			t_x = t_x + l-1
 		else
 			t_x = t_x - l-1
