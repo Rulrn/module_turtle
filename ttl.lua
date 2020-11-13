@@ -261,11 +261,11 @@ function goTo(x,y,z)
 		down(-z)
 	end
 	-- return to initial orientation
-	if dir >= 0 do
+	if dir >= 0 then
 		for i=1, dir do
 			turtle.turnLeft()
 		end
-	elseif dir == -1 do
+	elseif dir == -1 then
 		turtle.turnRight()
 	end
 end
