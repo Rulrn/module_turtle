@@ -242,25 +242,25 @@ function goTo(x,y,z)
 		forward(x)
 	else
 		flip()
-		forward(-x)
+		forward(math.abs(x))
 		dir = dir + 2
 		temp_flip = true
 	end
 	-- y
 	if (y >= 0 and not temp_flip) or (y <=0 and temp_flip) then
 		turtle.turnRight()
-		forward(y)
+		forward(math.abs(y))
 		dir = dir +1
 	else
 		turtle.turnLeft()
+		forward(math.abs(x))
 		dir = dir -1
-		forward(-y)
 	end	
 	-- z
 	if z >= 0 then
 		up(z)
 	else
-		down(-z)
+		down(math.abs(z))
 	end
 	-- return to initial orientation
 	if dir >= 0 then
