@@ -293,6 +293,9 @@ function volume(l,w,h)
 	
 	local way = 1
 	
+	local forward = true
+	local right = true
+	
 	--only positive parameters
 	if l <= 0 or w <= 0 or h <= 0 then
 		print("!!! only positive parameters!!!")
@@ -308,17 +311,11 @@ function volume(l,w,h)
 	
 	--cycle
 	digForward()
-	t_x = t_x +1
-	
 	for i=1, h do
 		--start layer
 		for j=1, w-1 do
 			digForward(l-1)
-			if j%2 == 1 then
-				t_x = t_x + l-1
-			else
-				t_x = t_x - l-1
-			end
+			t_x = dir*(l-1)
 			if j%2==way then
 				turtle.turnRight()
 				digForward()
@@ -328,20 +325,9 @@ function volume(l,w,h)
 				digForward()
 				turtle.turnLeft()
 			end
-			if way%2 == 1 then
-				t_y = t_y +1
-			else
-				t_y = t_y - 1
-			end
+			forward = not forward
 		end
 		digForward(l-1)
-		if t_x <=0 then
-			t_x = t_x + l-1
-		else
-			t_x = t_x - l-1
-		end
-		
-		
 		if w%2 == 0 then
 			way = 1 - way
 		end
@@ -349,9 +335,12 @@ function volume(l,w,h)
 		if i ~= h then 
 			digUp()
 			flip()
+			forward = not forward
+			right = not right
 		end
 	end
-	print("x:"..t_x.."y:"..t_y.."z:"..t_z.."")
+	print("right:"right)
+	print("forward:"forward)
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
