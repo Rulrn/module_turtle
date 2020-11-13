@@ -11,6 +11,7 @@
 --[[
     - print_3D(mot)
     - drop in chest (position, all, slots, item)
+	- blame
 --]]
 
 -- variables 
@@ -272,28 +273,66 @@ function goTo(x,y,z)
 	else
 		turtle.turnRight()
 	end
+	return true
 end
 
 function flip()
     turtle.turnLeft()
     turtle.turnLeft()
+	return true
 end
 
 -- function create
 
 function volume(l,w,h)
-	local x = 0
-	local y = 0
+	local fuel_max = l*w*h + l+w+h+1
+
+	local t_x = 0
+	local t_y = 0
+	local t_z = 0
+	--only positive parameters
+	if l <= 0 or w <= 0 or h <= 0 then
+		print("!!! only positive parameters!!!")
+		return false
+	end
+	
+	--enough fuel
+	if not enoughtFuel(fuel) then
+		local fuel = fuel_max - turtle.getFuelLevel()
+		print("need "..fuel.." fuel, knowing 1 coal is 80 fuel")
+		return false
+	end
+	
+	--cycle
+	digForward()
+	for i=1, h do
+		for j=1, w do
+			digForward(l)
+			if j%2==1 then
+				turtle.turnRight()
+				turtle.digForward()
+				turtle.turnRight()
+			else
+				turtle.turnLeft()
+				turtle.digForward()
+				turtle.turnLeft()
+			end
+		end
+	end
+	
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
 function line(l, h)
 	local m = l*h
+	
 	if enoughtFuel(m) then
-		-- dig a line
+		volume(l,0,h)
+		return true
 	else 
 		local fuel = (l*h) - turtle.getFuelLevel()
-		print("need "..fuel.." fuel")
+		print("need "..fuel.." fuel, knowing 1 coal is 80 fuel")
+		return false
 	end
 end
 
