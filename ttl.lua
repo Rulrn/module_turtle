@@ -315,7 +315,6 @@ function volume(l,w,h)
 		--start layer
 		for j=1, w-1 do
 			digForward(l-1)
-			t_x = dir*(l-1)
 			if j%2==way then
 				turtle.turnRight()
 				digForward()
@@ -339,8 +338,8 @@ function volume(l,w,h)
 			right = not right
 		end
 	end
-	print("right:"right)
-	print("forward:"forward)
+	print("right:"..right)
+	print("forward:"..forward)
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
