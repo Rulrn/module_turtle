@@ -338,8 +338,8 @@ function volume(l,w,h)
 			right = not right
 		end
 	end
-	print("right:"..right)
-	print("forward:"..forward)
+	print("right:"..tostring(right))
+	print("forward:"..tostring(forward))
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
