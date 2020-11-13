@@ -267,7 +267,7 @@ function goTo(x,y,z)
 		for i=1, dir do
 			turtle.turnLeft()
 		end
-	elseif dir == -1 then
+	else
 		turtle.turnRight()
 	end
 end
