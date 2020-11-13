@@ -297,7 +297,7 @@ function volume(l,w,h)
 	end
 	
 	--enough fuel
-	if not enoughtFuel(fuel) then
+	if not enoughtFuel(fuel_max) then
 		local fuel = fuel_max - turtle.getFuelLevel()
 		print("need "..fuel.." fuel, knowing 1 coal is 80 fuel")
 		return false
@@ -306,17 +306,18 @@ function volume(l,w,h)
 	--cycle
 	digForward()
 	for i=1, h do
-		for j=1, w do
-			digForward(l)
+		for j=1, w-1 do
+			digForward(l-1)
 			if j%2==1 then
 				turtle.turnRight()
-				turtle.digForward()
+				digForward()
 				turtle.turnRight()
 			else
 				turtle.turnLeft()
-				turtle.digForward()
+				digForward()
 				turtle.turnLeft()
 			end
+			digForward(l-1)
 		end
 	end
 	
