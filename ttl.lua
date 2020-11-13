@@ -199,7 +199,7 @@ function digForward(n)
 	for i=1, n do
 		if turtle.detect() then
 			turtle.dig()
-			tutle.forward()
+			tutrle.forward()
 		else
 			turtle.forward()
 		end
@@ -212,7 +212,7 @@ function digUp(n)
 	for i=1, n do
 		if  turtle.detectUp() then
 			turtle.digUp()
-			tutle.up()
+			turtle.up()
 		else
 			turtle.up()
 		end
@@ -225,7 +225,7 @@ function digDown(n)
 	for i=1, n do
 		if  turtle.detectDown() then
 			turtle.digDown()
-			tutle.down()
+			turtle.down()
 		else
 			turtle.down()
 		end
