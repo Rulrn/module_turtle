@@ -198,7 +198,7 @@ function digForward(n)
 	for i=1, n do
 		if turtle.detect() then
 			turtle.dig()
-			tutrle.forward()
+			turtle.forward()
 		else
 			turtle.forward()
 		end
