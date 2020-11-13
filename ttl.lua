@@ -317,8 +317,8 @@ function volume(l,w,h)
 				digForward()
 				turtle.turnLeft()
 			end
-			digForward(l-1)
 		end
+		digForward(l-1)
 	end
 	
 end
