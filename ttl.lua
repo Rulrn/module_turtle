@@ -244,10 +244,10 @@ function goTo(x,y,z)
 	end
 	-- y
 	if y >= 0 then
-		turnRight()
+		turtle.turnRight()
 		forward(y)
 	else
-		turnLeft()
+		turtle.turnLeft()
 		forward(y)
 	end	
 	-- z
@@ -264,6 +264,12 @@ function flip()
 end
 
 -- function create
+
+function volume(l,w,h)
+	local x = 0
+	local y = 0
+end
+
 	-- line(n) dig a length*heigh line in front of the turtle
 function line(l, h)
 	local m = l*h
