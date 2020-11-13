@@ -235,19 +235,23 @@ end
 	-- the turtle will go to the coordonates, knowing that the turtle is at
 	-- (0,0,0) and +x is in front, +y is on the right and +z is on the top 
 function goTo(x,y,z)
+	local dir = 0
 	-- x
 	if x >= 0 then
 		forward(x)
 	else
 		flip()
 		forward(-x)
+		dir = dir + 2
 	end
 	-- y
 	if y >= 0 then
 		turtle.turnRight()
 		forward(y)
+		dir = dir +1
 	else
 		turtle.turnLeft()
+		dir = dir -1
 		forward(-y)
 	end	
 	-- z
@@ -255,6 +259,14 @@ function goTo(x,y,z)
 		up(z)
 	else
 		down(-z)
+	end
+	-- return to initial orientation
+	if dir >= 0 do
+		for i=1, dir do
+			turtle.turnLeft()
+		end
+	elseif dir == -1 do
+		turtle.turnRight()
 	end
 end
 
