@@ -14,7 +14,6 @@
     - drop in chest (position, all, slots, item)
 --]]
 
-local u = require("util")
 local t = {}
 setmetatable(t, {__index = turtle})
 
