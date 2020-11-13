@@ -263,7 +263,7 @@ function goTo(x,y,z)
 		down(math.abs(z))
 	end
 	-- return to initial orientation
-	if dir >= 0 then
+	if dir >= 0 and dir ~= 3 then
 		for i=1, dir do
 			turtle.turnLeft()
 		end
