@@ -291,7 +291,7 @@ function volume(l,w,h)
 	local t_y = 0
 	local t_z = 0
 	
-	local way = 0
+	local way = 1
 	
 	--only positive parameters
 	if l <= 0 or w <= 0 or h <= 0 then
@@ -323,12 +323,14 @@ function volume(l,w,h)
 			end
 		end
 		digForward(l-1)
-		if w%2 == 1 then
+		if w%2 == 0 then
 			way = 1 - way
 		end
 		--end layer
-		digUp()
-		flip()
+		if i ~= h then 
+			digUp()
+			flip()
+		end
 	end
 	
 end
