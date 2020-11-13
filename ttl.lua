@@ -289,7 +289,7 @@ function volume(l,w,h)
 
 	local t_x = 0
 	local t_y = 0
-	local t_z = 0
+	local t_z = h
 	
 	local way = 1
 	
@@ -308,6 +308,8 @@ function volume(l,w,h)
 	
 	--cycle
 	digForward()
+	t_x = t_x +1
+	
 	for i=1, h do
 		--start layer
 		for j=1, w-1 do
@@ -333,6 +335,12 @@ function volume(l,w,h)
 			end
 		end
 		digForward(l-1)
+		if j%2 == 1 then
+			t_x = t_x + l-1
+		else
+			t_x = t_x - l-1
+		end
+		
 		
 		if w%2 == 0 then
 			way = 1 - way
@@ -341,10 +349,9 @@ function volume(l,w,h)
 		if i ~= h then 
 			digUp()
 			flip()
-			t_z = t_z +1
 		end
 	end
-	print("x:"..t_x.."y:"..t_y.."z:"..t_z..)
+	print("x:"..t_x.."y:"..t_y.."z:"..t_z.."")
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
