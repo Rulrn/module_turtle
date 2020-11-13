@@ -8,7 +8,6 @@
 --                              version : 1.16.4                    --
 ------------------------------------------------------------------
     
- --bonjour   
 --[[
     - print_3D(mot)
     - drop in chest (position, all, slots, item)
