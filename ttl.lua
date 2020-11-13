@@ -247,7 +247,9 @@ function goTo(x,y,z)
 		temp_flip = true
 	end
 	-- y
-	if (y >= 0 and not temp_flip) or (y <=0 and temp_flip) then
+	if y == 0 then
+		-- :^)
+	elseif (y >= 0 and not temp_flip) or (y <=0 and temp_flip) then
 		turtle.turnRight()
 		forward(math.abs(y))
 		dir = dir +1
