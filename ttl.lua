@@ -240,7 +240,7 @@ function goTo(x,y,z)
 		forward(x)
 	else
 		flip()
-		forward(x)
+		forward(-x)
 	end
 	-- y
 	if y >= 0 then
@@ -248,13 +248,13 @@ function goTo(x,y,z)
 		forward(y)
 	else
 		turtle.turnLeft()
-		forward(y)
+		forward(-y)
 	end	
 	-- z
 	if z >= 0 then
 		up(z)
 	else
-		down(z)
+		down(-z)
 	end
 end
 
