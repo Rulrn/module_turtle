@@ -14,16 +14,13 @@
     - drop in chest (position, all, slots, item)
 --]]
 
-local t = {}
-setmetatable(t, {__index = turtle})
-
 -- variables 
-t.ALL_COALS = {"minecraft:coal", "minecraft:charcoal"}
+ALL_COALS = {"minecraft:coal", "minecraft:charcoal"}
     -- a finir si besoin
-t.ALL_FUELS = {
+ALL_FUELS = {
     "minecraft:planks", "minecraft:coal", "minecraft:charcoal"
 }
-t.FUEL_VALUES = {
+FUEL_VALUES = {
     ["minecraft:lava_bucket" ] = 1000,
     ["minecraft:coal"		 ] = 80,
     ["minecraft:charcoal"	 ] = 80, 
@@ -35,12 +32,12 @@ t.FUEL_VALUES = {
 }
 -- inventory
 
-function t.slot(n)
+function slot(n)
     turtle.select(n)
     return turtle.getItemDetail(n)
 end
 
-function t.isInventoryFull()
+function isInventoryFull()
     for i=1, 16 do
         if t.getItemCount(i) == 0 then
             return false
@@ -49,7 +46,7 @@ function t.isInventoryFull()
     return true
 end
 
-function t.selectItem(name)
+function selectItem(name)
     for i=1, 16 do
         local data = turtle.getItemDetail(i)
         if data and data.name == name then
@@ -60,7 +57,7 @@ function t.selectItem(name)
     return false
 end
 
-function t.getItemCount(name)
+function getItemCount(name)
     local count = 0
     for i=1, 16 do
         local data = turtle.getItemDetail(i)
@@ -71,7 +68,7 @@ function t.getItemCount(name)
     return count
 end
 
-function t.dropItem(name)
+function dropItem(name)
     for i=1, 16 do
         details = turtle.getItemDetail(i)
     
@@ -82,7 +79,7 @@ function t.dropItem(name)
     end
 end
 
-function t.stackItems()
+function stackItems()
     -- Remember seen items
     local m = {}
     for i=1, 16 do
@@ -117,38 +114,38 @@ function t.stackItems()
     end
 end
 
-function t.smartRefuel(combustible, n)
+function smartRefuel(combustible, n)
     local n = n or 1
     local fuels = {}
-    local prevCursor = t.getSelectedSlot()
+    local prevCursor = turtle.getSelectedSlot()
 
     for k, v in ipairs(combustible) do
         fuels[v] = true
     end
 
-    local initFuel = t.getFuelLevel()
+    local initFuel = turtle.getFuelLevel()
     local currFuel = initFuel
     for i=1, 16 do
-        t.select(i)
+        turtle.select(i)
         item = turtle.getItemDetail()
         if item and fuels[item.name] then
-            local fuelValue = t.FUEL_VALUES[item.name]
+            local fuelValue = FUEL_VALUES[item.name]
             local missingFuel = n-(currFuel-initFuel)
             turtle.refuel(math.ceil(missingFuel/fuelValue))
-            currFuel = t.getFuelLevel()
+            currFuel = turtle.getFuelLevel()
             if currFuel - initFuel >= n then
-              t.select(prevCursor)
+              turtle.select(prevCursor)
               return true
             end
         end
     end
-    t.select(prevCursor)
+    turtle.select(prevCursor)
     return false
 end
 
 -- movements
-function t.enoughtFuel(n)
-	if t.getFuelLevel() <= n then
+function enoughtFuel(n)
+	if turtle.getFuelLevel() <= n then
 		return false
 	else
 		return true
@@ -157,7 +154,7 @@ end
 
 
     -- back is risky to use because we can't know if the way is clear
-function t.back(n)
+function back(n)
     n = n or 1
     for i=1, n do
         if not turtle.back() then
@@ -167,7 +164,7 @@ function t.back(n)
     return true
 end
 
-function t.forward(n)
+function forward(n)
     n = n or 1
     for i=1, n do
         if not turtle.forward() then
@@ -177,7 +174,7 @@ function t.forward(n)
     return true
 end
 
-function t.up(n)
+function up(n)
     n = n or 1
     for i=1, n do
         if not turtle.up() then
@@ -187,7 +184,7 @@ function t.up(n)
     return true
 end
 
-function t.down(n)
+function down(n)
     n = n or 1
     for i=1, n do
         if not turtle.down() then
@@ -199,31 +196,31 @@ end
 
 	-- the turtle will go to the coordonates, knowing that the turtle is at
 	-- (0,0,0) and +x is in front, +y is on the right and +z is on the top 
-function t.goTo(x,y,z)
+function goTo(x,y,z)
 	-- x
 	if x >= 0 then
-		t.forward(x)
+		forward(x)
 	else
-		t.flip()
-		t.forward(x)
+		flip()
+		forward(x)
 	end
 	-- y
 	if y >= 0 then
-		t.turnRight()
-		t.forward(y)
+		turnRight()
+		forward(y)
 	else
-		t.turnLeft()
-		t.forward(y)
+		turnLeft()
+		forward(y)
 	end	
 	-- z
 	if z >= 0 then
-		t.up(z)
+		up(z)
 	else
-		t.down(z)
+		down(z)
 	end
 end
 
-function t.flip()
+function flip()
     turtle.turnLeft()
     turtle.turnLeft()
 end
@@ -232,14 +229,12 @@ end
 	-- line(n) dig a length*heigh line in front of the turtle
 function line(l, h)
 	local m = l*h
-	if t.enoughtFuel(m) then
+	if enoughtFuel(m) then
 		-- dig a line
 	else 
-		local fuel = (l*h) - t.getFuelLevel()
+		local fuel = (l*h) - turtle.getFuelLevel()
 		print("need "..fuel.." fuel")
 	end
 end
 
 -- test
-
-return t
