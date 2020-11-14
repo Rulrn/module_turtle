@@ -20,7 +20,7 @@ ALL_FUELS = {
     "minecraft:lava_bucket",
     "minecraft:coal",
     "minecraft:charcoal",
-    "minecraft:coal_block"
+    "minecraft:coal_block",
     "minecraft:blaze_rod",
     "minecraft:oak_sapling",
     "minecraft:spruce_sapling",
