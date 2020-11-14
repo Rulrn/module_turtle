@@ -14,22 +14,86 @@
 	- blame
 --]]
 
--- variables 
-ALL_COALS = {"minecraft:coal", "minecraft:charcoal"}
-    -- a finir si besoin
+-- constants
+ALL_COALS = {"minecraft:coal", "minecraft:charcoal", "minecraft:coal_block"}
 ALL_FUELS = {
-    "minecraft:planks", "minecraft:coal", "minecraft:charcoal"
+    "minecraft:lava_bucket",
+    "minecraft:coal",
+    "minecraft:charcoal",
+    "minecraft:coal_block"
+    "minecraft:blaze_rod",
+    "minecraft:oak_sapling",
+    "minecraft:spruce_sapling",
+    "minecraft:birch_sapling",
+    "minecraft:jungle_sapling",
+    "minecraft:acacia_sapling",
+    "minecraft:dark_oak_sapling",
+    "minecraft:oak_planks",
+    "minecraft:spruce_planks",
+    "minecraft:birch_planks",
+    "minecraft:jungle_planks",
+    "minecraft:acacia_planks",
+    "minecraft:dark_oak_planks",
+    "minecraft:oak_log",
+    "minecraft:spruce_log",
+    "minecraft:birch_log",
+    "minecraft:jungle_log",
+    "minecraft:acacia_log",
+    "minecraft:dark_oak_log",
+    "minecraft:stick"
 }
 FUEL_VALUES = {
-    ["minecraft:lava_bucket" ] = 1000,
-    ["minecraft:coal"		 ] = 80,
-    ["minecraft:charcoal"	 ] = 80, 
-    ["minecraft:blaze_rod"   ] = 120,
-    ["minecraft:oak_planks"  ] = 15,
-    ["minecraft:red_mushroom"] = 15,
-    ["minecraft:sticks"      ] = 5, 
-    ["minecraft:coal_block"  ] = 800
+    ["minecraft:lava_bucket"] = 100,
+    ["minecraft:coal"] = 80,
+    ["minecraft:charcoal"] = 80,
+    ["minecraft:coal_block"] = 800,
+    ["minecraft:blaze_rod"] = 120,
+    ["minecraft:oak_sapling"] = 5,
+    ["minecraft:spruce_sapling"] = 5,
+    ["minecraft:birch_sapling"] = 5,
+    ["minecraft:jungle_sapling"] = 5,
+    ["minecraft:acacia_sapling"] = 5,
+    ["minecraft:dark_oak_sapling"] = 5,
+    ["minecraft:oak_planks"] = 15,
+    ["minecraft:spruce_planks"] = 15,
+    ["minecraft:birch_planks"] = 15,
+    ["minecraft:jungle_planks"] = 15,
+    ["minecraft:acacia_planks"] = 15,
+    ["minecraft:dark_oak_planks"] = 15,
+    ["minecraft:oak_log"] = 960,
+    ["minecraft:spruce_log"] = 960,
+    ["minecraft:birch_log"] = 960,
+    ["minecraft:jungle_log"] = 960,
+    ["minecraft:acacia_log"] = 960,
+    ["minecraft:dark_oak_log"] = 960,
+    ["minecraft:stick"] = 5
 }
+GRAVITY = {
+    ["minecraft:gravel"] = true,
+    ["minecraft:sand"] = true,
+    ["minecraft:red_sand"] = true,
+    ["minecraft:anvil"] = true,
+    ["minecraft:chipped_anvil"] = true,
+    ["minecraft:damaged_anvil"] = true,
+    ["minecraft:white_concrete_powder"] = true,
+    ["minecraft:orange_concrete_powder"] = true,
+    ["minecraft:magenta_concrete_powder"] = true,
+    ["minecraft:light_blue_concrete_powder"] = true,
+    ["minecraft:yellow_concrete_powder"] = true,
+    ["minecraft:lime_concrete_powder"] = true,
+    ["minecraft:pink_concrete_powder"] = true,
+    ["minecraft:gray_concrete_powder"] = true,
+    ["minecraft:light_gray_concrete_powder"] = true,
+    ["minecraft:cyan_concrete_powder"] = true,
+    ["minecraft:purple_concrete_powder"] = true,
+    ["minecraft:blue_concrete_powder"] = true,
+    ["minecraft:brown_concrete_powder"] = true,
+    ["minecraft:green_concrete_powder"] = true,
+    ["minecraft:red_concrete_powder"] = true,
+    ["minecraft:black_wool_concrete_powder"] = true,
+    ["minecraft:dragon_egg"] = true
+}
+
 -- inventory
 
 function slot(n)
@@ -199,10 +263,11 @@ function digForward(n)
 	for i=1, n do
 		if turtle.detect() then
 			turtle.dig()
-			turtle.forward()
-		else
-			turtle.forward()
 		end
+		while GRAVITY[select(2, turtle.inspect())] do
+			turtle.dig()
+		end
+		turtle.forward()
 	end
 	return true
 end
@@ -212,10 +277,11 @@ function digUp(n)
 	for i=1, n do
 		if  turtle.detectUp() then
 			turtle.digUp()
-			turtle.up()
-		else
-			turtle.up()
 		end
+		while GRAVITY[select(2, turtle.inspectUp())] do
+			turtle.digUp()
+		end
+		turtle.up()
 	end
 	return true
 end
@@ -225,10 +291,8 @@ function digDown(n)
 	for i=1, n do
 		if  turtle.detectDown() then
 			turtle.digDown()
-			turtle.down()
-		else
-			turtle.down()
 		end
+		turtle.down()
 	end
 	return true
 end
