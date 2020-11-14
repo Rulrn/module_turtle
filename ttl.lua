@@ -264,7 +264,7 @@ function digForward(n)
 		if turtle.detect() then
 			turtle.dig()
 		end
-		while GRAVITY[select(2, turtle.inspect())] do
+		while GRAVITY[select(2, turtle.inspect()).name] do
 			turtle.dig()
 		end
 		turtle.forward()
@@ -278,7 +278,7 @@ function digUp(n)
 		if  turtle.detectUp() then
 			turtle.digUp()
 		end
-		while GRAVITY[select(2, turtle.inspectUp())] do
+		while GRAVITY[select(2, turtle.inspectUp()).name] do
 			turtle.digUp()
 		end
 		turtle.up()
