@@ -348,9 +348,15 @@ end
 
 -- function create
 
-function volume(l,w,h)
+--volume(length, width, height, bool(turtle dig down or up))
+function volume(l,w,h, down)
+	-- case where we want to dig down
+	down = down or false
+	local down_h = -1
+	
 	local fuel_max = l*w*h + l+w+h+1
 
+	--going back to the initial position of the turtle
 	local t_x = 0
 	local t_y = 0
 	local t_z = h
@@ -375,6 +381,10 @@ function volume(l,w,h)
 	
 	--cycle
 	digForward()
+	if down then
+		digDown()
+		down_h = 1
+	end
 	for i=1, h do
 		--start layer
 		for j=1, w-1 do
@@ -396,7 +406,11 @@ function volume(l,w,h)
 		end
 		--end layer
 		if i ~= h then 
-			digUp()
+			if down then 
+				digDown()
+			else
+				digUp()
+			end
 			flip()
 			forward = not forward
 			right = not right
@@ -406,24 +420,25 @@ function volume(l,w,h)
 	if not forward then
 		flip()
 	end
+	
 	if forward and right then
-		goTo(-(l-1),-(w-1), -(h-1))
+		goTo(-(l-1),-(w-1), down_h*(h-1))
 	elseif forward and not right then
-		goTo(-(l-1),0,-(h-1))
+		goTo(-(l-1),0,down_h*(h-1))
 	elseif not forward and right then
-		goTo(0,-(w-1),-(h-1))
+		goTo(0,-(w-1),down_h*(h-1))
 	elseif not forward and not right then
-		goTo(0,0,-(h-1))
+		goTo(0,0,down_h*(h-1))
 	end
 	turtle.back()
 end
 
 	-- line(n) dig a length*heigh line in front of the turtle
-function line(l, h)
+function line(l, h, down)
 	local m = l*h
 	
 	if enoughtFuel(m) then
-		volume(l,0,h)
+		volume(l,1,h, down)
 		return true
 	else 
 		local fuel = (l*h) - turtle.getFuelLevel()
