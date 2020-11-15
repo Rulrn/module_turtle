@@ -384,7 +384,7 @@ function volume(l,w,h, down)
 	if down then
 		digDown()
 		down_h = 1
-		t_z = h+1
+		t_z = h+3
 	end
 	for i=1, h do
 		--start layer
@@ -423,13 +423,13 @@ function volume(l,w,h, down)
 	end
 	
 	if forward and right then
-		goTo(-(l-1),-(w-1), down_h*(h-1))
+		goTo(-(l-1),-(w-1), down_h*(t_z-1))
 	elseif forward and not right then
-		goTo(-(l-1),0,down_h*(h-1))
+		goTo(-(l-1),0,down_h*(t_z-1))
 	elseif not forward and right then
-		goTo(0,-(w-1),down_h*(h-1))
+		goTo(0,-(w-1),down_h*(t_z-1))
 	elseif not forward and not right then
-		goTo(0,0,down_h*(h-1))
+		goTo(0,0,down_h*(t_z-1))
 	end
 	turtle.back()
 end
