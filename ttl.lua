@@ -384,6 +384,7 @@ function volume(l,w,h, down)
 	if down then
 		digDown()
 		down_h = 1
+		t_z = h+1
 	end
 	for i=1, h do
 		--start layer
